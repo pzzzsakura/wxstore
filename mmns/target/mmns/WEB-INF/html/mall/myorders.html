@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../resources/fonts/iconfont/iconfont.css" />
+		<style>
+			body{font-size: 10px;}
+			li{padding: 10px;}
+			img{max-width: 50%!important;width: 30%!important;height: auto!important;margin-right: 20px;}/*每个商品列表里的商品图片,图片规格为100*100*/
+			.orderproductname{margin-bottom: 5px;}
+			.orderproducttime{margin-bottom: 5px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">我的订单</h1>
+		</header>
+		<div class="mui-content">
+				<div style="position: fixed;z-index: 100;background-color:#EFEFF4;" id="selectwho">
+				<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1">
+				待支付
+			</a>
+					<a class="mui-control-item" href="#item2">
+				待发货
+			</a>
+					<a class="mui-control-item" href="#item3">
+				待收货
+			</a>
+					<a class="mui-control-item" href="#item4">
+				已完成
+			</a>
+				</div>
+			</div>
+			<div style="margin-top: 40px;">
+				<div id="item1" class="mui-control-content mui-active">
+							<ul class="mui-table-view" id="item1ul">
+		        			<!--<li class="mui-table-view-cell mui-media">
+					        	<img src="../img/263ec3f80f0246568a7d2f81aad97472.jpg" class="mui-media-object mui-pull-left"/>
+					        		<div style="" class="mui-media-body">
+					        			<div class="orderproductname">订单号 :<span class="ordercount">D1234564879756</span></div>
+					        			<div>时间 :<span class="orderproducttime">2017-08-23</span></div>
+					        				<div style="float: left;">
+					        				价格 :<span style="line-height: 30px;" class="orderproductprice">99</span>
+					        				</div>
+					        				<div style="float: right;">
+					        					<button style="height: 30px;border-radius: 15px;" class="tobuy">取消订单</button>
+					        				<button style="height: 30px;border-radius: 15px;color: #EE895E;border-color:#EE895E ;" class="tobuy">去支付</button>
+					        				</div>
+					        			
+					        		</div>
+		        			</li>-->
+							</ul>
+				</div>
+				
+				<div id="item2" class="mui-control-content">
+					<ul class="mui-table-view" id="item2ul">
+						
+					</ul>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<ul class="mui-table-view" id="item3ul">
+					</ul>
+				</div>
+				<div id="item4" class="mui-control-content">
+					<ul class="mui-table-view" id="item4ul">
+					</ul>
+				</div>
+				</div>
+			</div>
+			<!--<table width="100%" height="40px" id="showstyle">
+			  <tr>
+			    <td style="text-align: center;border-right: 1px solid;width: 33.33%;">待支付</td>
+			    <td style="text-align: center;border-right: 1px solid;">待发货</td>
+			    <td style="text-align: center;">待收货</td>
+			  </tr>
+			</table>-->
+		
+		
+		<script src="../resources/js/mui.min.js"></script>
+		<script type="text/javascript" src="../resources/js/app.js" ></script>
+		<script type="text/javascript" src="../resources/js/myorders.js" ></script>
+		
+	</body>
+
+</html>

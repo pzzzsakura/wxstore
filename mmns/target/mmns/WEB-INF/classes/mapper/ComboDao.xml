@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.ComboDao">
+  <insert id="insertCombo" parameterType="com.irecssa.mmns.entity.Combo">
+    INSERT  INTO tb_combo
+    (combo_id, aproduct_id, bproduct_id, cproduct_id, free_id)
+    VALUES
+    (#{comboId},#{aProduct.productId},{bProduct.productId},#{cProduct.productId},#{free.freeId})
+  </insert>
+
+  <select id="queryComboList" resultType="com.irecssa.mmns.entity.Combo">
+    SELECT combo_id, combo_name,aproduct_id, bproduct_id, cproduct_id, free_id
+    FROM tb_combo
+  </select>
+
+  <select id="queryComboById" parameterType="String" resultType="com.irecssa.mmns.entity.Combo">
+     SELECT combo_id,combo_name, aproduct_id, bproduct_id, cproduct_id, free_id
+    FROM tb_combo WHERE combo_id=#{comboId}
+  </select>
+
+  <select id="queryComboByProductId" parameterType="com.irecssa.mmns.entity.Combo" resultType="com.irecssa.mmns.entity.Combo">
+    SELECT combo_id,combo_name, aproduct_id, bproduct_id, cproduct_id, free_id
+    FROM tb_combo
+    <where>
+      <if test="aProduct!=null and aProduct.productId!=null">
+        AND aproduct_id = #{aProduct.productId}
+      </if>
+      <if test="bProduct!=null and bProduct.productId!=null">
+        AND bproduct_id = #{bProduct.productId}
+      </if>
+      <if test="cProduct!=null and cProduct.productId!=null">
+        AND cproduct_id = #{cProduct.productId}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../resources/fonts/iconfont/iconfont.css" />
+		<style>
+			body{font-size: 14px;}
+			.mui-content{padding-top: 30px!important;}
+			li{background-color: #EFEFF4;margin: 5px;}
+			.icon-default{visibility: visible;}
+			.border{border: 2px solid gray;}
+			.mui-backdrop {
+		    position: fixed;
+		    top: 0;
+		    right: 0;
+		    bottom: 150;
+		    left: 0;
+		    z-index: 887;
+		    background-color: rgba(0,0,0,.3);
+		}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">收货地址</h1>
+			<a class="mui-pull-right" style="line-height: 40px;color: black;margin-right: 10px;" id="addaddress">添加</a>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="addresses">
+			</ul>
+		</div>
+			<div id="popover" style="bottom: 0;position: fixed;display: none;width: 100%;z-index: 888;">
+			  <ul class="mui-table-view" style="background: white;padding: 5px 0px;">
+			    <li class="mui-table-view-cell" style="text-align: center;">设为默认</li>
+			    <li class="mui-table-view-cell" style="text-align: center;">编辑</li>
+			    <li class="mui-table-view-cell" style="text-align: center;">删除</li>
+			  </ul>
+			</div>
+		<script src="../resources/js/mui.min.js"></script>
+		<script type="text/javascript" src="../resources/js/app.js" ></script>
+		<script type="text/javascript" src="../resources/js/myshippingaddress.js" ></script>
+		
+	</body>
+
+</html>

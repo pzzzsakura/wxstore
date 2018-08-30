@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.PersonInfoDao">
+<insert id="insertPersonInfo" parameterType="com.irecssa.mmns.entity.PersonInfo">
+  INSERT INTO
+  tb_personinfo(personinfo_id, mobi, iage, power, gameintegral, shopintegral,chance_dzp,chance_qmm)
+  VALUES
+  (#{personInfoId},#{mobi},#{iage},#{power},#{gameIntegral},#{shopIntegral},#{chanceDzp},#{chanceQmm})
+</insert>
+
+  <update id="updatePersonInfo" parameterType="com.irecssa.mmns.entity.PersonInfo" >
+    UPDATE tb_personinfo SET
+    <trim suffixOverrides=",">
+    <if test="mobi!=null">mobi=mobi+#{mobi},</if>
+    <if test="iage!=null">iage=iage+#{iage},</if>
+    <if test="power!=null">power=power+#{power},</if>
+    <if test="chanceDzp!=null">chance_dzp=chance_dzp+#{chanceDzp},</if>
+    <if test="chanceQmm!=null">chance_qmm=chance_qmm+#{chanceQmm},</if>
+    <if test="gameIntegral!=null">gameintegral=gameintegral+#{gameIntegral},</if>
+    <if test="shopIntegral!=null">shopintegral=shopintegral+#{shopIntegral}</if>
+    </trim>
+    <where>
+      AND personinfo_id=#{personInfoId}
+    </where>
+  </update>
+
+  <select id="queryPersonInfo" parameterType="String" resultType="com.irecssa.mmns.entity.PersonInfo">
+    SELECT
+    personinfo_id, mobi, iage, power, gameintegral, shopintegral,chance_dzp,chance_qmm
+    FROM  tb_personinfo
+    WHERE personinfo_id=#{personInfoId}
+  </select>
+
+</mapper>

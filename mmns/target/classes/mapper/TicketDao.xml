@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.SPNumDao">
+  <insert id="insertTicket" parameterType="com.irecssa.mmns.entity.Ticket">
+
+  INSERT INTO tb_ticket
+ (ticket_id, ticket,expire_in, create_time)
+VALUES (#{ticketId},#{ticket},#{expireIn},#{createTime})
+</insert>
+  <update id="updateTicket" parameterType="com.irecssa.mmns.entity.Ticket">
+    UPDATE tb_ticket SET
+    ticket=#{ticket}
+    WHERE ticket_id=#{ticketId}
+  </update>
+
+  <select id="queryTicket" resultType="com.irecssa.mmns.entity.Ticket">
+    SELECT
+    ticket_id, ticket,expire_in, create_time
+     FROM tb_ticket
+  </select>
+</mapper>

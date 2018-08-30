@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.ProductDao">
+  <resultMap id="productResultMap" type="com.irecssa.mmns.entity.Product">
+    <id column="product_id" property="productId"></id>
+    <result column="product_name" property="productName"></result>
+    <result column="normal_mobi" property="normalMobi"></result>
+    <result column="promotion_mobi" property="promotionMobi"></result>
+    <result column="is_boom" property="isBoom"></result>
+    <result column="is_combo" property="isCombo"></result>
+    <result column="is_free" property="freeId"></result>
+    <result column="product_integral" property="productIntegral"></result>
+    <result column="product_img" property="productImg"></result>
+    <result column="priority" property="priority"></result>
+    <result column="create_time" property="createTime"></result>
+    <result column="lastedit_time" property="lastEditTime"></result>
+    <result column="enable_status" property="enableStatus"></result>
+    <result column="product_intro" property="productIntro"></result>
+    <result column="boom_deadline" property="boomDeadline"></result>
+    <association property="productCategory" column="procate_id"
+      javaType="com.irecssa.mmns.entity.ProductCategory">
+      <id column="procate_id" property="procateId"></id>
+      <result column="procate_name" property="procateName"></result>
+      <result column="priority" property="priority"></result>
+      <result column="create_time" property="createTime"></result>
+      <result column="lastedit_time" property="lastEditTime"></result>
+      <result column="procate_num" property="procateNum"></result>
+      <result column="enable_status" property="enableStatus"></result>
+    </association>
+    <association property="productDesc" column="prodesc_id"
+      javaType="com.irecssa.mmns.entity.ProductDesc">
+      <id column="prodesc_id" property="prodescId"></id>
+      <result column="prodesc_text" property="prodescText"></result>
+      <result column="create_time" property="createTime"></result>
+    </association>
+    <association property="productRepertory" column="prorep_id"
+      javaType="com.irecssa.mmns.entity.ProductRepertory">
+      <id column="prorep_id" property="prorepId"></id>
+      <result column="sale_num" property="saleNum"></result>
+      <result column="current_num" property="currentNum"></result>
+      <result column="create_time" property="createTime"></result>
+      <result column="lastedit_time" property="lastEditTime"></result>
+    </association>
+    <collection property="productImgList" column="proimg_id"
+      ofType="com.irecssa.mmns.entity.ProductImg">
+      <id column="proimg_id" property="proimgId"></id>
+      <result column="proimg_url" property="proimgUrl"></result>
+      <result column="priority" property="priority"></result>
+      <result column="create_time" property="createTime"></result>
+      <result column="enable_status" property="createTime"></result>
+      <result column="product_id" property="productId"></result>
+    </collection>
+    <collection property="productBannerList" column="probanner_id"
+      ofType="com.irecssa.mmns.entity.ProductBanner">
+      <id column="probanner_id" property="probannerId"></id>
+      <result column="probanner_url" property="probannerUrl"></result>
+      <result column="priority" property="priority"></result>
+      <result column="create_time" property="createTime"></result>
+      <result column="lastedit_time" property="lastEditTime"></result>
+      <result column="enable_status" property="enableStatus"></result>
+      <result column="product_id" property="productId"></result>
+    </collection>
+  </resultMap>
+
+  <select id="queryProductCount" resultType="int">
+    SELECT count(1) FROM tb_product
+    <where>
+      <if test="productCondition!=null and productCondition.productName!=null and productCondition.productName!='null'">
+        product_name LIKE CONCAT(CONCAT('%',#{productCondition.productName}),'%')
+      </if>
+      <if test="productCondition!=null and productCondition.isBoom!=null and productCondition.isBoom!=-1">
+        AND is_boom = #{productCondition.isBoom}
+      </if>
+      <if test="productCondition!=null and productCondition.freeId!=null and productCondition.freeId!='null'">
+        AND is_free = #{productCondition.freeId}
+      </if>
+      <if test="productCondition!=null and productCondition.isCombo!=null and productCondition.isCombo!=-1">
+        AND is_combo = #{productCondition.isCombo}
+      </if>
+      <if test="productCondition!=null and productCondition.productCategory!=null
+    and productCondition.productCategory.procateId!=null and productCondition.productCategory.procateId!='null'">
+        AND procate_id = #{productCondition.productCategory.procateId}
+      </if>
+      <if test="productCondition!=null and productCondition.enableStatus!=null">
+        AND enable_status = #{productCondition.enableStatus}
+      </if>
+
+    </where>
+  </select>
+
+  <select id="queryProductList" resultMap="productResultMap">
+    SELECT
+    p.product_id,
+    p.product_name,
+    p.normal_mobi,
+    p.promotion_mobi,
+    p.is_boom,
+    p.is_combo,
+    p.is_free,
+    p.product_integral,
+    p.product_img,
+    p.enable_status s,
+    p.priority,
+    p.create_time,
+    p.lastedit_time,
+    p.procate_id,
+    p.product_intro,
+    p.prodesc_id,
+    p.boom_deadline,
+    r.prorep_id,
+    r.current_num,
+    r.sale_num
+    FROM tb_product p LEFT JOIN tb_product_repertory r
+    ON p.prorep_id = r.prorep_id
+    <where>
+      <if test="productCondition!=null and productCondition.productName!=null and productCondition.productName!='null'">
+        p.product_name LIKE CONCAT(CONCAT('%',#{productCondition.productName}),'%')
+      </if>
+      <if test="productCondition!=null and productCondition.isBoom!=null and productCondition.isBoom!=-1">
+        AND p.is_boom = #{productCondition.isBoom}
+      </if>
+      <if test="productCondition!=null and productCondition.freeId!=null and productCondition.freeId!='null'">
+        AND p.is_free = #{productCondition.freeId}
+      </if>
+      <if test="productCondition!=null and productCondition.isCombo!=null and productCondition.isCombo!=-1">
+        AND p.is_combo = #{productCondition.isCombo}
+      </if>
+      <if test="productCondition!=null and productCondition.productCategory!=null
+    and productCondition.productCategory.procateId!=null and productCondition.productCategory.procateId!='null'">
+        AND p.procate_id = #{productCondition.productCategory.procateId}
+      </if>
+      <if test="productCondition!=null and productCondition.enableStatus!=null">
+        AND p.enable_status = #{productCondition.enableStatus}
+      </if>
+    </where>
+    <if test="priceNew==null or priceNew=='null'">
+      ORDER BY p.priority DESC
+    </if>
+    <if test="priceNew=='price'">
+      ORDER BY p.promotion_mobi ASC
+    </if>
+    <if test="priceNew=='new'">
+      ORDER BY p.lastedit_time DESC
+    </if>
+    LIMIT #{rowIndex},#{pageSize};
+  </select>
+
+  <insert id="insertProduct" parameterType="com.irecssa.mmns.entity.Product">
+    INSERT INTO
+    tb_product
+    (
+    product_id,
+    product_name,
+    normal_mobi,
+    promotion_mobi,
+    is_boom,
+    is_combo,
+    is_free,
+    product_integral,
+    product_img,
+    enable_status,
+    priority,
+    create_time,
+    lastedit_time,
+    procate_id,
+    product_intro,
+    prodesc_id,
+    boom_deadline,
+    prorep_id
+    )
+    VALUES
+      (
+      #{productId},
+      #{productName},
+      #{normalMobi},
+      #{promotionMobi},
+      #{isBoom},
+      #{isCombo},
+      #{freeId},
+      #{productIntegral},
+      #{productImg},
+      #{enableStatus},
+      #{priority},
+      #{createTime},
+      #{lastEditTime},
+      #{productCategory.productCategoryId},
+      #{productIntro},
+      #{productDesc.prodescId},
+      #{boomDeadline},
+      #{productRepertory.prorepId}
+      )
+  </insert>
+
+  <select id="queryProductById" parameterType="String" resultMap="productResultMap">
+  SELECT
+      p.product_id,
+      p.product_name,
+      p.normal_mobi,
+      p.promotion_mobi,
+      p.is_boom,
+      p.is_combo,
+      p.is_free,
+      p.product_integral,
+      p.product_img,
+      p.enable_status s,
+      p.priority,
+      p.create_time,
+      p.lastedit_time,
+      p.procate_id,
+      p.product_intro,
+      p.prodesc_id,
+      p.boom_deadline,
+      p.prorep_id,
+      b.probanner_id,
+      b.probanner_url,
+      b.priority,
+      b.create_time,
+      b.lastedit_time,
+      b.enable_status e
+    FROM tb_product p LEFT JOIN
+    tb_product_banner b ON p.product_id = b.product_id
+    WHERE p.product_id=#{productId}
+    ORDER BY b.priority DESC
+</select>
+
+  <select id="queryProductImgById" parameterType="String" resultMap="productResultMap">
+    SELECT
+    p.product_id,
+    i.proimg_id,
+    i.proimg_url,
+    i.create_time,
+    i.priority,
+    i.enable_status s
+    FROM tb_product p LEFT JOIN
+    tb_product_img i ON p.product_id = i.product_id
+    WHERE p.product_id=#{productId}
+    ORDER BY i.priority DESC
+  </select>
+
+  <update id="updateProduct" parameterType="com.irecssa.mmns.entity.Product">
+    UPDATE tb_product
+    <set>
+      <if test="productName != null and productName!= 'null'">product_name=#{productName},</if>
+      <if test="normalMobi != null">normal_mobi=#{normalMobi},</if>
+      <if test="promotionMobi != null ">promotion_mobi=#{promotionMobi},</if>
+      <if test="isBoom != null and isBoom != -1">is_boom=#{isBoom},</if>
+      <if test="isCombo != null isCombo != -1">is_combo=#{isCombo},</if>
+      <if test="freeId!= null and freeId!= 'null'">is_free=#{freeId},</if>
+      <if test="productIntegral != null and productIntegral != null">product_integral=#{productIntegral},</if>
+      <if test="productImg != null and productImg != 'null'">product_img=#{productImg},</if>
+      <if test="enableStatus != null">enable_status=#{enableStatus},</if>
+      <if test="priority != null">priority=#{priority},</if>
+      <if test="createTime!=null and createTime!= 'null'">create_time=#{createTime}</if>
+      <if test="lastEditTime!=null and lastEditTime!= 'null'">lastedit_time=#{lastEditTime}</if>
+      <if test="productCategory!=null and productCategory.procateId!=null and productCategory.procateId!= 'null'">
+        procate_id=#{productCategory.procateId}
+      </if>
+      <if test="product_intro!=null and product_intro!= 'null'">product_intro=#{productIntro}</if>
+      <if test="productDesc!=null and productDesc.prodescId!=null and productDesc.prodescId!= 'null'">
+        prodesc_id=#{productDesc.prodescId}
+      </if>
+      <if test="boom_deadline!=null and boom_deadline!= 'null'">boom_deadline=#{boomDeadline}</if>
+      <if test="productRepertory!=null and productRepertory.prorepId!=null and productRepertory.prorepId!= 'null'">
+        prorep_id=#{productRepertory.prorepId}
+      </if>
+    </set>
+    WHERE product_id = #{productId}
+  </update>
+</mapper>

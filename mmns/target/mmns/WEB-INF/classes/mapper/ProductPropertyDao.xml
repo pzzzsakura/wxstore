@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.ProductPropertyDao">
+  <resultMap id="productPropertyResultMap" type="com.irecssa.mmns.entity.ProductProperty">
+    <id property="ppId" column="pp_id"></id>
+    <result property="createTime" column="create_time"></result>
+    <result property="lastEditTime" column="lastedit_time"></result>
+    <result property="ppManageId" column="ppmanage_id"></result>
+    <association property="propertyValue" column="pv_id" javaType="com.irecssa.mmns.entity.PropertyValue">
+      <id property="pvId" column="pv_id"></id>
+      <result property="vid" column="vid"></result>
+      <result property="value" column="property_value"></result>
+    </association>
+  </resultMap>
+<insert id="batchInsertProductProperty" parameterType="java.util.List">
+  INSERT INTO tb_product_property
+  (pp_id, product_id, create_time, lastedit_time,pv_id, ppmanage_id)
+  VALUES
+  <foreach collection="list" item="productProperty" index="index" separator=",">
+    (#{productProperty.ppId},
+    #{productProperty.productId},
+    #{productProperty.createTime},
+    #{productProperty.lastEditTime},
+    #{productProperty.propertyValue.pvId},
+    #{productProperty.ppManageId})
+  </foreach>
+</insert>
+
+  <select id="queryProductPropertyByProductId" parameterType="String" resultMap="productPropertyResultMap">
+    SELECT
+    pr.pp_id, pr.product_id, pv.pv_id,pv.property_id,pv.property_value,pv.vid, pr.create_time, pr.lastedit_time, pr.ppmanage_id
+    FROM tb_product_property pr LEFT JOIN tb_property_value pv
+    ON pr.pv_id = pv.pv_id
+    WHERE pr.product_id=#{productId}
+  </select>
+
+
+  <select id="queryProductPropertyByProductIdAndPPManageId" parameterType="String" resultMap="productPropertyResultMap">
+    SELECT
+   pr.pp_id, pr.product_id, pv.pv_id,pv.property_id,pv.property_value,pv.vid, pr.create_time, pr.lastedit_time, pr.ppmanage_id
+    FROM tb_product_property pr LEFT JOIN tb_property_value pv
+    ON pr.pv_id = pv.pv_id
+    WHERE product_id=#{productId} AND ppmanage_id=#{ppManageId}
+  </select>
+</mapper>

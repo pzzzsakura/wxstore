@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.MainBannerCategoryDao">
+  <insert id="insertMainBannerCategory" parameterType="com.irecssa.mmns.entity.MainBannerCategory">
+    INSERT INTO tb_banner_category
+    (bannercate_id, bannercate_name)
+    VALUES
+    (#{bannercateId},#{bannercateName})
+  </insert>
+
+  <select id="queryMainBannerCategoryList" parameterType="com.irecssa.mmns.entity.MainBannerCategory" resultType="com.irecssa.mmns.entity.MainBannerCategory">
+    SELECT bannercate_id,bannercate_name FROM tb_banner_category
+    WHERE
+    <if test="mainBannerCategory!=null and bannercateName!=null">
+    bannercate_name = #{bannercateName}
+    </if>
+  </select>
+</mapper>

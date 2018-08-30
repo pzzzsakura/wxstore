@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.WorldImgDao">
+  <insert id="batchInsertWorldImg" parameterType="java.util.List">
+    INSERT INTO
+    tb_worldimg(worldimg_id, worldimg_url, priority, create_time, enable_status)
+    VALUES
+    <foreach collection="list" item="worldImg" index="index"
+      separator=",">
+      (
+      #{worldImg.worldImgId},
+      #{worldImg.worldImgUrl},
+      #{worldImg.priority},
+      #{worldImg.createTime},
+      #{worldImg.enableStatus}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryWorldImgList" resultType="com.irecssa.mmns.entity.WorldImg">
+    select * from tb_worldimg ORDER  BY priority DESC ;
+  </select>
+
+  <delete id="deleteWorldImg">
+    DELETE FROM tb_worldimg
+  </delete>
+</mapper>

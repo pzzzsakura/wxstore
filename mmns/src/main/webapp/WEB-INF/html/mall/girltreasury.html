@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>女神宝库</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../resources/fonts/iconfont/iconfont.css" />
+		<style>
+			table{margin-top: 10px;}
+			/*.mui-bar-nav{width: 100%;height: 50px;}*/
+			#list{color: darkgray;font-size: 30px;padding: 7.5px 0px;}
+			#shopcar{color: white;font-size: 30px;padding: 7.5px 0px;}
+			#showstyle{border: 0px solid;color: darkgray;background-color: white;}
+			#showone{border-right: 1px solid;}
+			/*.icon-touzantongpiao2{font-size: 15px;}*/
+			body{font-size: 12px;padding: 0px!important;margin: 0px;}
+			#lists li{background-color: white;margin-bottom: 5px;padding: 10px;}
+			img{max-width: 50%!important;width: 30%!important;height: auto!important;}/*每个商品列表里的商品图片,图片规格为100*100*/
+			.mui-backdrop {
+			    position: fixed;
+			    top: 0;
+			    right: 0;
+			    bottom: 350px;
+			    left: 0;
+			    z-index:800 ;
+			    background-color: rgba(0,0,0,.3);
+			}
+			.mui-off-canvas-left, .mui-off-canvas-right{background: #f1f1f1!important;}
+			.productname{margin-bottom: 0px;}/*每个商品列表里的商品名*/
+			.outproductprice{margin-bottom: 0px;color: darkgray;}/*每个商品列表里的商品价格*/
+			.lineprice{text-decoration: line-through;}
+			/*把默认、价格和最新都放大了包括旁边小图标*/
+			.style{margin: 5px;height: 25px;line-height: 25px;padding: 0px 10px;}
+			.stylechecked{margin: 5px;height: 25px;line-height: 25px;padding: 0px 10px;border-color: palevioletred;color: palevioletred;}
+			.outproductprice{color: darkgray;}
+			.productprice{color: orchid;margin-bottom: 0px; }
+			#offCanvasSide{color: palevioletred;}
+			/*.style{border-color: palevioletred;color: darkgoldenrod;}*/
+			.tdchecked{background: #e70200;color: white;}
+			.bottomchecked{color: #e70200;}
+		</style>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+		<aside id="offCanvasSide" class="mui-off-canvas-left" >
+			
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper" style="overflow: auto;">
+					<div class="mui-scroll">
+						<div id="popover" style="overflow: auto;">
+						<button style="margin-top: 30px;">全部</button>
+						
+					</div>
+					</div>
+				</div>
+			</aside>
+		<div class="mui-inner-wrap mui-bar-nav">
+		<header class="mui-bar" style="background: #E70200;">
+			<a class="mui-icon iconfont icon-list-copy mui-pull-left" id="list" style="color: white;"></a>
+			<div class="mui-title" style="">
+				<div class="input-box" style="margin: 0px 10px;">
+				<input type="text"  placeholder="请输入" style="border-radius: 15px;padding-right: 40px;margin-bottom: 0px;height: 36px;" id="searchinput"/><i class="mui-icon  mui-icon-search" style="left: -30px;" id="search"></i>
+				</div>
+			</div>
+			<a class="mui-icon iconfont icon-gouwuche mui-pull-right" id="shopcar"></a>
+		</header>
+		<div class="mui-content" style="padding-top: 45px;">
+			<table width="100%" height="35px" id="showstyle" style="margin-top: 5px;">
+			  <tr style="text-align: center">
+			    <td style="text-align: center;width: 33.33%;" class="tdchecked">默认</td>
+			    <td style="text-align: center;border-left: 1px solid;border-right: 1px solid">价格</td>
+			    <td style="text-align: center;width: 33.33%">最新</td>
+			  </tr>
+			</table>
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper" style="margin-top: 85px;overflow: auto;margin-bottom: 50px;">
+				<div class="mui-scroll">
+		        <ul class="mui-table-view" style="padding: 5px;background-color: #EFEFF4;" id="lists">
+
+		        	
+		        </ul>
+		       </div>
+		       </div>
+		</div>
+			<nav class="mui-bar mui-bar-tab" id="defaultTab">
+			<a class="mui-tab-item" href="/mmns/mall/girlword">
+				<span class="mui-tab-label">女神世界</span>
+			</a>
+			<a class="mui-tab-item" href="/mmns/mall/girltreasury">
+				<span class="mui-tab-label bottomchecked">女神宝库</span>
+			</a>
+			<a class="mui-tab-item" href="/mmns/mall/girlhouse">
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	    	<div id="bottomall" style="bottom: 0px;position: fixed;display: none;width: 100%;z-index: 999;background-color: white;height: 350px;color: palevioletred;">
+	    		<div style="width: 100%;height: 100px;padding: 10px;position: absolute">
+		 			<img src="" class="mui-media-object mui-pull-left" id="bottomImg"  style="margin-right: 10px"/>
+		        		<div class="mui-media-body">
+	        			<div class="productprice">￥：<span id="price">89 膜币</span></div>
+        				<div style="color:gray">
+        				库存<span style="line-height: 20px;" id="currentNum">9999</span>件
+        				</div>
+		        		<div id="longstr" style="margin-top: 5px;">请选择商品类型</div>		
+		        		</div>
+		        	</div>
+					<div class="mui-scroll-wrapper"  style="height: 200px;width: 100%;margin-top: 100px;margin-bottom: 50px">
+						<div class="mui-scroll">
+							<!--这里放置真实显示的DOM内容-->
+
+
+		        <div style="width: 100%;" id="taocanall">
+		        	<h4 style="margin-top: 30px;">套餐组合</h4>
+					<div style="margin-top: 10px;" id="taocan">
+						
+					</div>
+		        </div>
+							<div id="popoverbottom">
+						</div>
+	    		<div id="bottomfirst">
+	    		<div style="float: left;height: 50px;padding: 0px 20px;line-height: 50px;">购买数量</div>
+    			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='' style="float: right;height: 30px;margin: 10px 20px;" id="boxmax">
+					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					<input id="box" class="mui-input-numbox" type="number" />
+					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				</div>
+				</div>
+
+
+				</div>
+		</div>
+				<button style="width: 100%;background-color: palevioletred;height: 50px;color: white;overflow: hidden;position: absolute;bottom: 0" id="btn">确定</button>
+						
+	    	</div>
+		<div class="mui-off-canvas-backdrop"></div>
+		</div>
+		</div>
+	
+	<script src="../resources/js/mui.min.js"></script>
+	<script type="text/javascript" src="../resources/js/app.js" ></script>
+	<script type="text/javascript" src="../resources/js/girltreasury.js" ></script>
+	</body>
+
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.WechatOrderDao">
+<insert id="insertWechatOrder" parameterType="com.irecssa.mmns.entity.WechatOrder">
+  INSERT INTO tb_order
+  (order_id, name, openid, ip, paymoney, order_num, accepter, create_time, finish_time, enable_status, paybody,personinfo_id)
+  VALUES
+  (#{orderId},#{name},#{openId},#{id},#{payMoney},#{orderNum},#{accepter},#{createTime},#{finishTime},#{enableStatus},#{payBody},#{personInfoId})
+</insert>
+
+  <update id="updateWechatOrder" parameterType="com.irecssa.mmns.entity.WechatOrder">
+    UPDATE tb_order SET
+    enable_status=#{enableStatus},
+    finish_time=#{finishTime}
+    WHERE order_num=#{orderNum}
+  </update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.DzpResultDao">
+  <resultMap id="dzpResultResultMap" type="com.irecssa.mmns.entity.DzpResult">
+    <id property="drId" column="dr_id"></id>
+    <result property="openId" column="openid"></result>
+    <association property="reward" column="rewardId" javaType="com.irecssa.mmns.entity.Reward">
+      <id column="reward_id" property="rewardId"></id>
+      <result column="reward_name" property="rewardName"></result>
+      <result column="reward_num" property="rewardNum"></result>
+      <result column="reward_desc" property="rewardDesc"></result>
+      <result column="reward_img" property="rewardImg"></result>
+      <result column="enable_status" property="enableStatus"></result>
+      <result column="reward_salenum" property="rewardSaleNum"></result>
+    </association>
+  </resultMap>
+
+  <insert id="insertDzpResult" parameterType="com.irecssa.mmns.entity.DzpResult">
+    insert into tb_dzp_result (dr_id, openid, reward_id) values (#{drId},#{openId},#{rewardId});
+  </insert>
+
+  <select id="queryDzpResult" parameterType="String" resultMap="dzpResultResultMap">
+    SELECT
+    d.dr_id,
+    d.openid,
+    r.reward_id,
+    r.reward_name,
+    r.reward_num,
+    r.reward_desc,
+    r.reward_img,
+    r.enable_status,
+    r.reward_salenum
+    FROM tb_dzp_result d LEFT JOIN tb_reward r
+    ON d.reward_id=r.reward_id
+    WHERE d.dr_id=#{drId}
+  </select>
+</mapper>

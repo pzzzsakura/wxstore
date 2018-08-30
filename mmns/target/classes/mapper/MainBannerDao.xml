@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.MainBannerDao">
+  <resultMap id="mainBannerResultMap" type="com.irecssa.mmns.entity.MainBanner">
+    <id column="banner_id" property="bannerId"></id>
+    <result column="banner_url" property="bannerUrl"></result>
+    <result column="banner_redirectid" property="bannerRedirectId"></result>
+    <result column="priority" property="priority"></result>
+    <result column="create_time" property="createTime"></result>
+    <result column="lastedit_time" property="lastEditTime"></result>
+    <result column="enable_status" property="enableStatus"></result>
+    <association property="mainBannerCategory" column="bannercate_id" javaType="com.irecssa.mmns.entity.MainBannerCategory">
+      <id column="bannercate_id" property="bannercateId"></id>
+      <result column="bannercate_name" property="bannercateName"></result>
+    </association>
+  </resultMap>
+
+  <insert id="insertMainBanner" parameterType="com.irecssa.mmns.entity.MainBanner">
+     INSERT INTO tb_main_banner
+     (banner_id, banner_url, banner_redirectid, priority, create_time, lastedit_time, bannercate_id)
+     VALUES
+       (
+       #{bannerId},
+       #{bannerUrl},
+       #{redirectId},
+       #{priority},
+       #{createTime},
+       #{lastedit_time},
+       ${mainBannerCategory.bannercateId}
+       )
+  </insert>
+  <select id="queryMainBannerList" resultMap="mainBannerResultMap">
+    SELECT
+    m.banner_id,m.banner_url,m.create_time,m.lastedit_time,m.enable_status,m.banner_redirectid,m.priority,
+    c.bannercate_id,c.bannercate_name
+    FROM tb_main_banner m
+    LEFT JOIN  tb_banner_category c
+    ON m.bannercate_id = c.bannercate_id
+    WHERE m.enable_status = 1
+    ORDER BY m.priority DESC
+  </select>
+</mapper>

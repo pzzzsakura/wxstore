@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.RewardDao">
+<select id="queryRewardList" resultType="com.irecssa.mmns.entity.Reward">
+  select * from tb_reward;
+</select>
+
+  <insert id="insertReward" parameterType="com.irecssa.mmns.entity.Reward">
+    INSERT INTO tb_reward
+    (reward_id, reward_name, reward_num, reward_desc, reward_img, enable_status, reward_salenum)
+ VALUES (#{rewardId},#{rewardName},#{rewardNum},#{rewardDesc},#{rewardImg},#{enableStatus},#{rewardSaleNum})
+  </insert>
+
+  <update id="updateReward" parameterType="com.irecssa.mmns.entity.Reward">
+    UPDATE tb_reward SET
+    <if test="rewardName!=null">reward_name=#{rewardName},</if>
+    <if test="rewardNum!=null">reward_num=#{rewardNum},</if>
+    <if test="rewardDesc!=null">reward_desc=#{rewardDesc},</if>
+    <if test="rewardImg!=null">reward_img=#{rewardImg},</if>
+    <if test="enableStatus!=null">enable_status=#{enableStatus},</if>
+    <if test="rewardSaleNum!=null">reward_salenum=reward_salenum+#{rewardSaleNum}</if>
+    WHERE reward_id=#{rewardId}
+</update>
+  <delete id="deleteReward" parameterType="String">
+    DELETE FROM tb_reward WHERE reward_id=#{rewardId}
+  </delete>
+
+  <select id="queryRewardById" parameterType="String">
+    SELECT
+    reward_id, reward_name, reward_num, reward_desc, reward_img, enable_status, reward_salenum
+    FROM tb_reward
+    WHERE reward_id=#{rewardId}
+  </select>
+</mapper>

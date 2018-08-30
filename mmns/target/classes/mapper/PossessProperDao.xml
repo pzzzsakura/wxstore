@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.PossessProperDao">
+  <insert id="insertPPManage" parameterType="com.irecssa.mmns.entity.PossessProper">
+   INSERT INTO tb_possessproper
+   (possessproper_id, proper_id, personinfo_id,propercate_id,enable_status)
+   VALUES (#{possessProperId},#{properId},#{personInfoId},#{propercateId},#{enableStatus})
+  </insert>
+
+  <select id="queryPossessProperList" parameterType="com.irecssa.mmns.entity.PossessProper" resultType="com.irecssa.mmns.entity.PossessProper">
+    SELECT possessproper_id, proper_id, personinfo_id,propercate_id,enable_status
+    FROM tb_possessproper
+    WHERE personinfo_id=#{personInfoId}
+    <if test="enableStatus!=null">AND enable_status=#{enbaleStatus}</if>
+    <if test="propercateId!=null">AND propercate_id=#{propercateId}</if>
+  </select>
+
+  <update id="updatePossessProper" parameterType="com.irecssa.mmns.entity.PossessProper">
+    UPDATE tb_possessproper SET
+    enable_status=#{enableStatus}
+    <where>
+    AND personinfo_id=#{personInfoId} AND propercate_id=#{propercateId}
+    <if test="possessProperId!=null">AND possessproper_id=#{possessProperId}</if>
+    </where>
+  </update>
+
+
+</mapper>

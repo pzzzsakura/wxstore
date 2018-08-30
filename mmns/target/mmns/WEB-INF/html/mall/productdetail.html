@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../resources/fonts/iconfont/iconfont.css" />
+		<style>
+			body{font-size: 14px;}
+			#picture{max-width: 50%!important;width: 35%!important;height: auto!important;}/*每个商品列表里的商品图片,图片规格为100*100*/
+			.img{height: 300px;}
+			.mui-backdrop {
+			    position: fixed;
+			    top: 0;
+			    right: 0;
+			    bottom: 350px;
+			    left: 0;
+			    z-index: 887;
+			    background-color: rgba(0,0,0,.3);
+			}
+			.style{margin: 5px;height: 25px;line-height: 25px;padding: 0px 10px;}
+			.stylechecked{margin: 5px;height: 25px;line-height: 25px;padding: 0px 10px;border-color: palevioletred;color: palevioletred;}
+			.productprice{color: orchid;margin-bottom: 5px; }
+		</style>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">鲜活水嫩紧致面膜</h1>
+		</header>
+		<div class="mui-content" style="margin-bottom: 50px">
+			<div class="mui-slider" id="slider">
+		  	<div class="mui-slider-group mui-slider-loop" id="pictures"> 
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><img class="img" id="lastpic"/></div>
+		    <div class="mui-slider-item mui-slider-item-duplicate"><img class="img" id="firstpic"/></div>
+		  	</div>
+		  	<div class="mui-slider-indicator" id="dots">
+		  		
+			</div>
+			</div>
+			<div style="margin: 10px;" id="productname">鲜活水嫩紧致面膜</div>
+			<div style="margin: 10px;color: orangered;">
+				<span>￥<span id="gardgirlprice">199</span>膜币</span>
+			</div>
+			<div style="margin-left: 10px;color: darkgray;float: left;">
+				价格<span style="text-decoration: line-through;">￥<span id="outproductprice">199</span></span>
+			</div>
+			<div style="float: right;width: 20%;color: darkgray;">已售<span id="salenum">9854</span></div>
+			<div id="showpic">
+			<!--<div>
+				<img src="../img/263ec3f80f0246568a7d2f81aad97472.jpg" style="width: 100%;display: block;"/>
+			</div>
+			<div>
+				<img src="../img/34c5db8de6ac80f6f0d8b0507423e9f9.jpg" style="width: 100%;display: block;"/>
+			</div>
+			<div>
+				<img src="../img/34c5db8de6ac80f6f0d8b0507423e9f9.jpg" style="width: 100%;display: block;"/>
+			</div>-->
+			</div>
+		
+		</div>
+		
+				<div id="bottomall" style="bottom: 0px;position: fixed;display: none;width: 100%;z-index: 999;background-color: white;height: 350px;color: palevioletred;">
+	    		<div style="width: 100%;height: 100px;padding: 10px;position: absolute;">   
+		 			<img src="../resources/img/263ec3f80f0246568a7d2f81aad97472.jpg" class="mui-media-object mui-pull-left" id="picture"/>
+		        		<div style="" class="mui-media-body">
+	        			<div class="productprice">￥：<span id="price">89 膜币</span></div>
+        				<div style="color:gray">
+        				库存<span style="line-height: 30px;" id="currentNum">9999</span>件
+        				</div>
+		        		<div id="longstr">请选择商品类型</div>		
+		        		</div>
+		        	</div>
+		        <div class="mui-scroll-wrapper"  style="height: 200px;width: 100%;margin-top: 100px;margin-bottom: 50px">
+				<div class="mui-scroll">
+		        
+	        	<div style="width: 100%;" id="taocanall">
+		        	<h4 style="margin-top: 30px;">套餐组合</h4>
+					<div style="margin-top: 10px;" id="taocan">
+						
+					</div>
+		        </div>
+		        <div id="popover">
+		       </div>
+	    		<div id="bottomfirst">
+	    		<div style="float: left;height: 50px;padding: 0px 20px;line-height: 50px;">购买数量</div>
+    			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='' style="float: right;height: 30px;margin: 10px 20px;" id="boxmax">
+					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					<input id="box" class="mui-input-numbox" type="number" />
+					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				</div>
+				</div>
+					
+				 </div>
+		       </div>
+				<button style="width: 100%;background-color: palevioletred;height: 50px;color: white;overflow: hidden;position: absolute;bottom:0;" id="btn">确定</button>
+						
+	    	</div>
+				
+		
+			<nav class="mui-bar mui-bar-tab" id="orginnav">
+				<button style="height: 40px;background: #f1f1f1;float: right;margin-top: 5px;" id="tobuy">提交订单</button>
+				<div style="float: right;height: 50px;padding: 15px;"><i class="iconfont icon-jiarugouwuche1" style="font-size: 35px;" id="addshoppingcar"></i></div>
+			</nav>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/app.js"></script>
+		<script type="text/javascript" src="../resources/js/productdetail.js" ></script>
+	</body>
+
+</html>

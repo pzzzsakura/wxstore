@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.PropertyValueDao">
+  <resultMap id="propertyValueResultMap" type="com.irecssa.mmns.entity.PropertyValue">
+    <id property="pvId" column="pv_id"></id>
+    <result property="vid" column="vid"></result>
+    <result property="value" column="property_value"></result>
+    <association property="property" column="property_id" javaType="com.irecssa.mmns.entity.Property">
+      <id column="property_id" property="propertyId"></id>
+      <result column="id" property="id"></result>
+      <result column="property_name" property="propertyName"></result>
+      <result column="property_order" property="propertyOrder"></result>
+    </association>
+  </resultMap>
+  <insert id="batchInsertPropertyValue" parameterType="java.util.List">
+    INSERT into tb_property_value
+    (pv_id, property_id, property_value)
+    VALUES
+    <foreach collection="list" index="index" item="propertyValue" separator=",">
+      (#{pvId},#{property.propertyId},propertyValue)
+    </foreach>
+  </insert>
+
+  <select id="queryPropertyList" parameterType="String" resultMap="propertyValueResultMap">
+    SELECT
+     v.vid,v.property_value,v.pv_id,p.id,p.property_id,p.property_name,p.property_order
+     FROM tb_property_value v LEFT JOIN tb_property p ON v.property_id=p.property_id
+     WHERE p.property_id=#{propertyId}
+    ORDER BY v.id
+</select>
+
+  <select id="queryPropertyValue" parameterType="String" resultMap="propertyValueResultMap">
+      SELECT
+     v.vid,v.property_value,v.pv_id,p.id,p.property_id,p.property_name,p.property_order
+     FROM tb_property_value v LEFT JOIN tb_property p ON v.property_id=p.property_idtb_productoperation_recoder
+    WHERE v.pv_id=#{pvId}
+  </select>
+
+  <select id="getByIds" parameterType="java.util.Arrays" resultMap="propertyValueResultMap">
+    SELECT
+    v.vid,v.property_value,v.pv_id,p.id,p.property_id,p.property_name,p.property_order
+    FROM tb_property_value v LEFT JOIN tb_property p ON v.property_id=p.property_id
+    WHERE v.pv_id in
+    <foreach collection="array" close=")" open="(" separator="," index="index" item="item">
+      #{item}
+    </foreach>
+    ORDER BY p.id ASC
+  </select>
+</mapper>

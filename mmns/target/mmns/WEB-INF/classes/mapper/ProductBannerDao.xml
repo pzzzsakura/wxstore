@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irecssa.mmns.dao.ProductBannerDao">
+  <insert id="batchInsertProductBanner" parameterType="java.util.List">
+    INSERT INTO
+    tb_product_banner(probanner_id, probanner_url, priority, create_time, lastedit_time, enable_status, product_id)
+    VALUES
+    <foreach collection="list" item="productBanner" index="index"
+      separator=",">
+      (
+      #{productBanner.probannerId},
+      #{productBanner.probannerUrl},
+      #{productBanner.priority},
+      #{productBanner.createTime},
+      #{productBanner.lastEditTime},
+      #{productBanner.enableStatus},
+      #{productBanner.productId}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteProductBannerByProductId">
+    DELETE FROM tb_product_banner
+    WHERE product_id = #{productId}
+  </delete>
+
+  <select id="queryProductBannerList" resultType="com.irecssa.mmns.entity.ProductBanner">
+    SELECT
+    probanner_id, probanner_url, priority, create_time, lastedit_time, enable_status, product_id
+    FROM tb_product_banner
+    WHERE product_id=#{productId}
+    ORDER BY
+    priority DESC
+  </select>
+</mapper>
